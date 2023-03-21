@@ -1,20 +1,10 @@
 use std::fs;
 use std::ffi::OsStr;
-
-//TODO: rar
-// extern crate unrar;
-// use unrar::Archive;
-
-//TODO: pdf
-// use pdf::file::File as PdfFile;
-// use pdf::password::PdfPassword;
-
+use qpdf::*;
 use bruteforce::BruteForce;
 use bruteforce::charset::Charset;
 
 // symbols: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_+=~`[]{}|\\:;\'<>,.?/"
-
-//extern crate rar;
 
 fn main() {
 
@@ -32,6 +22,7 @@ fn main() {
 
     const ALLOWED_EXTENSIONS: [&str; 3] = ["zip","rar","pdf"];
     let f_extension = f_name.extension().and_then(OsStr::to_str).unwrap();
+
     if !ALLOWED_EXTENSIONS.contains(&f_extension) {
         return println!("File extension is not allowed!");
     }
@@ -67,19 +58,25 @@ fn main() {
 
         // for s in brute_forcer {
         //
-        //     match Archive::with_password(String::from(&*args[0]),String::from(&s))
+        //     let result = unrar::Archive::with_password(args[0].clone(),s.clone()).list().unwrap();
+        //
+        //     if s == "aab" {
+        //         println!("{:?}",result);
+        //         break;
+        //     };
+        //
+        //     match unrar::Archive::with_password(args[0].into(),s)
         //     {
-        //         Ok(Archive) => {
+        //         unrar::Archive(_archive) => {
+        //             print!("{:?}",_archive);
         //             println!("================================================");
         //             println!("Password found: {}", &s);
         //             println!("================================================");
         //             break;
         //         },
-        //         Err(Archive) => {
-        //             println!("{}", &s);
-        //         },
         //         _ => {
-        //             println!("{}", &s);
+        //             //if s == "aab" {println!("{:?}",err)}
+        //             //println!("{}", &s);
         //         }
         //
         //     }
@@ -89,24 +86,24 @@ fn main() {
         // pfd
     }else{
 
-        // let pdf_file = PdfFile::new(file);
-        //
-        // for s in brute_forcer {
-        //
-        //     let pdf_password = PdfPassword::from_str(s);
-        //     if pdf_file.check_password(&pdf_password)? {
-        //
-        //         println!("================================================");
-        //         println!("Password found: {}", &s);
-        //         println!("================================================");
-        //         break;
-        //
-        //     }else{
-        //         println!("{}", &s);
-        //     }
-        //
-        //
-        // }
+        let file = fs::read(f_name).unwrap();
+
+        for s in brute_forcer {
+
+            match QPdf::read_from_memory_encrypted(&file, s.as_str()) {
+                Ok(_) => {
+                    println!("================================================");
+                    println!("Password found: {}", &s);
+                    println!("================================================");
+                    break;
+                },
+                Err(err) => {
+                    println!("{}", &s);
+                },
+
+            }
+
+        }
 
     }
 

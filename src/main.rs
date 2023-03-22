@@ -8,12 +8,31 @@ use bruteforce::charset::Charset;
 
 fn main() {
 
+    print!("\x1B[2J\x1B[1;1H");
+
     let args: Vec<String> = std::env::args().skip(1).collect();
 
     if args.len() == 0 {
         println!("No Archive (.zip, .rar, .pdf) path specified!");
         return;
     };
+    if args[0] == "help" || args[0] == "h"{
+        println!("
+ ▄████▄   ██▀███   ▄▄▄       ███▄    █  ██ ▄█▀ ██▓    ▓█████  ██▀███
+▒██▀ ▀█  ▓██ ▒ ██▒▒████▄     ██ ▀█   █  ██▄█▒ ▓██▒    ▓█   ▀ ▓██ ▒ ██▒
+▒▓█    ▄ ▓██ ░▄█ ▒▒██  ▀█▄  ▓██  ▀█ ██▒▓███▄░ ▒██░    ▒███   ▓██ ░▄█ ▒
+▒▓▓▄ ▄██▒▒██▀▀█▄  ░██▄▄▄▄██ ▓██▒  ▐▌██▒▓██ █▄ ▒██░    ▒▓█  ▄ ▒██▀▀█▄
+▒ ▓███▀ ░░██▓ ▒██▒ ▓█   ▓██▒▒██░   ▓██░▒██▒ █▄░██████▒░▒████▒░██▓ ▒██▒
+░ ░▒ ▒  ░░ ▒▓ ░▒▓░ ▒▒   ▓▒█░░ ▒░   ▒ ▒ ▒ ▒▒ ▓▒░ ▒░▓  ░░░ ▒░ ░░ ▒▓ ░▒▓░
+  ░  ▒     ░▒ ░ ▒░  ▒   ▒▒ ░░ ░░   ░ ▒░░ ░▒ ▒░░ ░ ▒  ░ ░ ░  ░  ░▒ ░ ▒░
+░          ░░   ░   ░   ▒      ░   ░ ░ ░ ░░ ░   ░ ░      ░     ░░   ░
+░ ░         ░           ░  ░         ░ ░  ░       ░  ░   ░  ░   ░
+░
+        ");
+        println!("  Usage: cargo run [filepath] [startstring]");
+        println!("\r\n\r\n");
+        return;
+    }
 
     let f_name = std::path::Path::new(&*args[0]);
     if !f_name.exists() {
@@ -97,7 +116,7 @@ fn main() {
                     println!("================================================");
                     break;
                 },
-                Err(err) => {
+                Err(_) => {
                     println!("{}", &s);
                 },
 

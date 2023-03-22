@@ -170,16 +170,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "compressed-cracker"
-version = "0.1.0"
-dependencies = [
- "bruteforce",
- "qpdf",
- "unrar",
- "zip",
-]
-
-[[package]]
 name = "constant_time_eq"
 version = "0.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -192,6 +182,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "28d997bd5e24a5928dd43e46dc529867e207907fe0b239c3477d924f7f2ca320"
 dependencies = [
  "libc",
+]
+
+[[package]]
+name = "crankler"
+version = "0.1.0"
+dependencies = [
+ "bruteforce",
+ "qpdf",
+ "unrar",
+ "zip",
 ]
 
 [[package]]

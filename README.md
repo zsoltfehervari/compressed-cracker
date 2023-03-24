@@ -21,5 +21,5 @@ Crack .zip .rar & .pdf files (slowly)
 
 ### Usage:
 ```
-cargo run [filepatch] [startstring]
+cargo run [filepath] [startstring]
 ```

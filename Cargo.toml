@@ -6,7 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-zip = "0.6.4"
 unrar = "0.4.4"
+zip = "0.6.4"
 qpdf = "0.1.5"
 bruteforce = "0.2.1"
